@@ -1,0 +1,208 @@
+﻿@model RiskIdentification
+@using AuditingSystem.Database;
+@using AuditingSystem.Entities;
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/addeditstyle.css" rel="stylesheet" />
+<div class="row">
+
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Edit Risk Identification</h4>
+                <form class="forms-sample" id="EditForm">
+                    <div class="form-group">
+                        <label for="Code">Code</label>
+                        <input type="text" class="form-control" id="Code" name="Code" placeholder="Generate Code" asp-for="Code">
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">Risk Title</label>
+                        <input type="text" class="form-control" id="Name" name="Name" placeholder="Risk Identification Name" asp-for="Name">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        <textarea type="text" class="form-control" id="Description" name="Description" placeholder="Description" asp-for="Description"></textarea>
+                        @* <div id="Description">@Html.Raw(Model.Description)</div> *@
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="RiskCategoryId">Risk Category</label>
+                        @Html.DropDownList("RiskCategoryId",  ViewBag.RiskCategoryId as SelectList, "-- Select One --", new { @class = "form-control", @id = "RiskCategory" , @name="RiskCategoryId"})
+                        <span asp-validation-for="RiskCategoryId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="RiskImpactId">Risk Impact</label>
+                        @Html.DropDownList("RiskImpactId", ViewBag.RiskImpactId as SelectList, "-- Select One --", new { @class = "form-control", @id = "RiskImpact" , @name="RiskImpactId"})
+                        <span asp-validation-for="RiskImpactId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="RiskLikelihoodId">Risk Like lihood</label>
+                        @Html.DropDownList("RiskLikelihoodId", ViewBag.RiskLikelihoodId as SelectList, "-- Select One --", new { @class = "form-control", @id = "RiskLikelihood" , @name="RiskLikelihoodId"})
+                        <span asp-validation-for="RiskLikelihoodId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="RiskRatingRationalization">Risk Rating Rationalization</label>
+                        <textarea type="text" class="form-control" id="RiskRatingRationalization" name="RiskRatingRationalization" placeholder="Risk Rating Rationalization" asp-for="RiskRatingRationalization"></textarea>
+                        @* <div id="RiskRatingRationalization">@Html.Raw(Model.RiskRatingRationalization)</div> *@
+                        <span asp-validation-for="RiskRatingRationalization" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="InherentRiskRating">Inherent Risk Rating</label>
+                        <input disabled type="text" class="form-control" id="InherentRiskRating" name="InherentRiskRating" placeholder="Inherent Risk Rating" asp-for="InherentRiskRating">
+                        <span asp-validation-for="InherentRiskRating" class="text-danger"></span>
+                    </div>
+
+                    <button id="saveButton" type="button" class="btn btn-primary me-2">Save Data</button>
+                    <button id="editLinkControlButton" type="button" class="btn btn-warning me-2">Edit Link Control</button>
+                    <button id="btnCancel" class="btn btn-light">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#RiskImpact, #RiskLikelihood").change(function () {
+                var riskImpactRate = parseInt($("#RiskImpact option:selected").text().split('-')[0].trim()) || 0;
+                var riskLikelihoodRate = parseInt($("#RiskLikelihood option:selected").text().split('-')[0].trim()) || 0;
+                var sum = riskImpactRate + riskLikelihoodRate;
+                $("#InherentRiskRating").val(sum);
+            });
+
+            $("#editLinkControlButton").click(function () {
+                var riskIdentificationId = @Model.Id;
+
+                $.ajax({
+                    url: '/Control/Edit',
+                    type: 'GET',
+                    data: { id: 0, riskIdentificationId: riskIdentificationId },
+                    success: function (data) {
+                        console.log(data);
+                        window.location.href = '/Control/Edit/' + data.id + '?riskIdentificationId=' + riskIdentificationId;
+                    },
+                    error: function (error) {
+                        console.log("Error:", error);
+                        alert("An error occurred while processing your request.");
+                    }
+                });
+            });
+
+
+            $("#EditForm").validate({
+                rules: {
+                    Code: {
+                        required: true
+                    },
+                    Name: {
+                        required: true
+                    },
+                    Description: {
+                        required: true
+                    },
+                    RiskCategoryId: {
+                        required: true
+                    },
+                    RiskImpactId: {
+                        required: true
+                    },
+                    RiskLikelihoodId: {
+                        required: true
+                    },
+                    RiskRatingRationalization: {
+                        required: true
+                    },
+                    InherentRiskRating: {
+                        required: true
+                    }
+                },
+                messages: {
+                    Code: {
+                        required: "The Code field is required"
+                    },
+                    Name: {
+                        required: "The Name field is required"
+                    },
+                    Description: {
+                        required: "The Description field is required"
+                    },
+                    RiskCategoryId: {
+                        required: "The Risk Category field is required"
+                    },
+                    RiskImpactId: {
+                        required: "The Risk Impact field is required"
+                    },
+                    RiskLikelihoodId: {
+                        required: "The Risk Likelihood field is required"
+                    },
+                    RiskRatingRationalization: {
+                        required: "The Risk Rating Rationalization field is required"
+                    },
+                    InherentRiskRating: {
+                        required: "The Inherent Risk Rating field is required"
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    if (element.is("select")) {
+                        error.insertAfter(element.siblings("span"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+
+            $(document).on("click", "#btnCancel", function (e) {
+                e.preventDefault();
+                window.location.href = '/RiskIdentification/Index';
+            });
+
+            $("#saveButton").click(function () {
+                var editorDescription = CKEDITOR.instances['Description'];
+
+                var htmlDescription = editorDescription.getData();
+
+                var editorRiskRatingRationalization = CKEDITOR.instances['RiskRatingRationalization'];
+
+                var htmlRiskRatingRationalization = editorRiskRatingRationalization.getData();
+                if ($("#EditForm").valid()) {
+                    var formData = {
+                        Code: $("#Code").val(),
+                        Name: $("#Name").val(),
+                        Description: htmlDescription,
+                        RiskCategoryId: $("#RiskCategory").val(),
+                        RiskImpactId: $("#RiskImpact").val(),
+                        RiskLikelihoodId: $("#RiskLikelihood").val(),
+                        RiskRatingRationalization: htmlRiskRatingRationalization,
+                        InherentRiskRating: $("#InherentRiskRating").val()
+                    };
+                    $.ajax({
+                        url: "/api/RiskIdentifications/" + @Model.Id,
+                        method: "PUT",
+                        dataType: 'json',
+                        contentType: "application/json",
+                        data: JSON.stringify(formData),
+                        success: function (response) {
+                            alert("The Modified is Successfully");
+                            window.location.href = '/RiskIdentification/Index';
+                        },
+                        error: function (error) {
+                            if (error.responseJSON && error.responseJSON.errors) {
+                                $.each(error.responseJSON.errors, function (key, value) {
+                                    $("#" + key).siblings(".text-danger").text(value);
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

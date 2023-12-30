@@ -1,0 +1,145 @@
+﻿@model Company
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/addeditstyle.css" rel="stylesheet" />
+<div class="row">
+
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Edit Company</h4>
+                <form class="forms-sample" id="EditForm">
+                    <div class="form-group">
+                        <label>Industry</label>
+                        @Html.DropDownList("IndustryId", ViewBag.IndustryId as SelectList, "-- Select One --", new { @class = "form-control", @id = "Industry", @name="IndustryId" })
+                        <span asp-validation-for="IndustryId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">Name</label>
+                        <input type="text" class="form-control" id="Name" placeholder="Company Name" asp-for="Name">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input type="email" class="form-control" id="Email" placeholder="Email Address" asp-for="Email">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="ContactNumber">Contact Number</label>
+                        <input type="text" class="form-control" id="ContactNumber" placeholder="Contact Number" asp-for="ContactNo">
+                        <span asp-validation-for="ContactNo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Address">Address</label>
+                        <textarea asp-for="Address" type="text" class="form-control" id="Address" placeholder="Address"></textarea>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        <textarea asp-for="Description" type="text" class="form-control" id="Description" placeholder="Description"></textarea>
+                        @* <div id="Description">@Html.Raw(Model.Description)</div> *@
+                    </div>
+                    <button id="saveButton" type="button" class="btn btn-primary me-2">Save Data</button>
+                    <button id="btnCancel" class="btn btn-light">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#EditForm").validate({
+                rules: {
+                    IndustryId: {
+                        required: true
+                    },
+                    Name: {
+                        required: true
+                    },
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    ContactNo: {
+                        required: true,
+                        number: true
+                    },
+                    Address: {
+                        required: true
+                    }
+                },
+                messages: {
+                    IndustryId: {
+                        required: "The Industry field is required"
+                    },
+                    Name: {
+                        required: "The Name field is required"
+                    },
+                    Email: {
+                        required: "The Email field is required",
+                        email: "Please enter a valid email address"
+                    },
+                    ContactNo: {
+                        required: "The Contact Number field is required",
+                        number: "Please enter a valid number"
+                    },
+                    Address: {
+                        required: "The Address field is required"
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    if (element.is("select") || element.is("textarea")) {
+                        error.insertAfter(element.siblings("span"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+
+            $(document).on("click", "#btnCancel", function (e) {
+                e.preventDefault();
+                window.location.href = '/Company/Index';
+            });
+
+            $("#saveButton").click(function () {
+                var editorDescription = CKEDITOR.instances['Description'];
+
+                var htmlDescription = editorDescription.getData();
+                if ($("#EditForm").valid()) {
+                    var formData = {
+                        Name: $("#Name").val(),
+                        Email: $("#Email").val(),
+                        Address: $("#Address").val(),
+                        ContactNo: $("#ContactNumber").val(),
+                        IndustryId: $("#Industry").val(),
+                        Description: htmlDescription
+                    };
+                    $.ajax({
+                        url: "/api/companies/" + @Model.Id,
+                        method: "PUT",
+                        dataType: 'json',
+                        contentType: "application/json",
+                        data: JSON.stringify(formData),
+                        success: function (response) {
+                            alert("The Modified is Successfully");
+                            window.location.href = '/Company/Index';
+                        },
+                        error: function (error) {
+                            if (error.responseJSON && error.responseJSON.errors) {
+                                $.each(error.responseJSON.errors, function (key, value) {
+                                    $("#" + key).siblings(".text-danger").text(value);
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

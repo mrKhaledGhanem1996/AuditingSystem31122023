@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Control>
+
+
+@{
+    ViewData["DeleteTitle"] = "Controls";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="card-title">Control Management View</h4>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <a class="btn btn-primary me-2" href="~/Control/Add">
+                            <i class="fa-solid fa-plus"></i> Add New Control
+                        </a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table style="width:1600px;" id="tableList" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Control Type</th>
+                                <th>Control Process</th>
+                                <th>Control Frequency</th>
+                                <th>Control Effectiveness</th>
+                                <th>Risk Identification</th>
+                                <th>Control Effectiveness Rating</th>
+                                <th colspan="2">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                if(item.RiskIdentification.IsDeleted == false)
+                                {
+                                    <tr id="tr">
+                                        <td>@item.Code</td>
+                                        <td>@item.Name</td>
+                                        <td>@Html.Raw(item.Description)</td>
+                                        <td style="background-color:@item.ControlType.BGColor; color:@item.ControlType.FontColor;">@item.ControlType.Name</td>
+                                        <td style="background-color:@item.ControlProcess.BGColor; color:@item.ControlProcess.FontColor;">@item.ControlProcess.Name</td>
+                                        <td style="background-color:@item.ControlFrequency.BGColor; color:@item.ControlFrequency.FontColor;">@item.ControlFrequency.Name</td>
+                                        <td style="background-color:@item.ControlEffectiveness.BGColor; color:@item.ControlEffectiveness.FontColor;">@item.ControlEffectiveness.Name</td>
+                                        <td>@item.RiskIdentification.Name</td>
+                                        <td>@item.ControlEffectivenessRating</td>
+                                        <td>
+                                            <a asp-action="Edit" asp-controller="Control" asp-route-id="@item.Id" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        </td>
+                                        <td>
+                                            <a data-actions-id="@item.Id" title="Delete" id="btnDelete" href="#"><i class="fa-solid fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <div class="row">
+                        <div class="col-md-6" style="text-align: left;
+    margin-top: 15px;">
+                            <p>
+                                Showing @Model.Count() of @ViewBag.TotalRow entries
+                            </p>
+                        </div>
+                        <div class="col-md-6" >
+                            <nav aria-label="Page navigation" class="float-end mt-3">
+                                <ul class="pagination">
+                                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                                    {
+                                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                            <a class="page-link" href="?page=@i&pageSize=@ViewBag.PageSize">@i</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-9"></div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="AverageControl">Average Control</label>
+            <input type="text" class="form-control" id="AverageControl" name="AverageControl" readonly>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function calculateAverageControlEffectivenessRating() {
+            var totalControlEffectivenessRating = 0;
+            var rowCount = 0;
+
+            $("#tableList tbody tr").each(function () {
+                var controlEffectivenessRating = parseFloat($(this).find("td:eq(8)").text()) || 0; 
+                totalControlEffectivenessRating += controlEffectivenessRating;
+                rowCount++;
+            });
+
+            var averageControlEffectivenessRating = rowCount > 0 ? totalControlEffectivenessRating / rowCount : 0;
+
+            $("#AverageControl").val(averageControlEffectivenessRating.toFixed(2));
+        }
+
+        calculateAverageControlEffectivenessRating();
+    </script>
+}

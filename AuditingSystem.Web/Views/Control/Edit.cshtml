@@ -1,0 +1,188 @@
+﻿@model Control
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/addeditstyle.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Edit Control</h4>
+                <form class="forms-sample" id="EditForm">
+                    <div class="form-group">
+                        <label for="Code">Code</label>
+                        <input type="text" class="form-control" id="Code" name="Code" placeholder="Generate Code" asp-for="Code">
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">Name</label>
+                        <input type="text" class="form-control" id="Name" name="Name" placeholder="Control Name" asp-for="Name">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        <textarea type="text" class="form-control" id="Description" name="Description" placeholder="Description" asp-for="Description"></textarea>
+                        @* <div id="Description">@Html.Raw(Model.Description)</div> *@
+                    </div>
+                    <div class="form-group">
+                        <label for="ControlTypeId">Control Type</label>
+                        @Html.DropDownList("ControlTypeId", ViewBag.ControlTypeId as SelectList, "-- Select One --", new { @class = "form-control", @id = "ControlType" , @name="ControlTypeId"})
+                        <span asp-validation-for="ControlTypeId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="ControlProcessId">Control Process</label>
+                        @Html.DropDownList("ControlProcessId", ViewBag.ControlProcessId as SelectList, "-- Select One --", new { @class = "form-control", @id = "ControlProcess" , @name="ControlProcessId"})
+                        <span asp-validation-for="ControlProcessId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="ControlFrequencyId">Control Frequency</label>
+                        @Html.DropDownList("ControlFrequencyId", ViewBag.ControlFrequencyId as SelectList, "-- Select One --", new { @class = "form-control", @id = "ControlFrequency" , @name="ControlFrequencyId"})
+                        <span asp-validation-for="ControlFrequencyId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="ControlEffectivenessId">Control Effectiveness</label>
+                        @Html.DropDownList("ControlEffectivenessId", ViewBag.ControlEffectivenessId as SelectList, "-- Select One --", new { @class = "form-control", @id = "ControlEffectiveness" , @name="ControlEffectivenessId"})
+                        <span asp-validation-for="ControlEffectivenessId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="RiskIdentificationId">Risk Identification</label>
+                        @Html.DropDownList("RiskIdentificationId", ViewBag.RiskIdentificationId as SelectList, "-- Select One --", new { @class = "form-control", @id = "RiskIdentification" , @name="RiskIdentificationId"})
+                        <span asp-validation-for="RiskIdentificationId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="ControlEffectivenessRating">Control Effectiveness Rating</label>
+                        <input asp-for="ControlEffectivenessRating" readonly type="text" class="form-control" id="ControlEffectivenessRating" name="ControlEffectivenessRating" placeholder="Control Effectiveness Rating">
+                        <span asp-validation-for="ControlEffectivenessRating" class="text-danger"></span>
+                    </div>
+                    <button id="saveButton" type="button" class="btn btn-primary me-2">Save Data</button>
+                    <button id="btnCancel" class="btn btn-light">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            $("#ControlEffectiveness").change(function () {
+                var selectedText = $("#ControlEffectiveness option:selected").text();
+                var parts = selectedText.split('-');
+                var numberBeforeDash = parts[0].trim();
+                var ControlEffectiveness = parseInt(numberBeforeDash) || 0;
+                $("#ControlEffectivenessRating").val(ControlEffectiveness);
+            });
+
+            $("#EditForm").validate({
+                rules: {
+                    Code: {
+                        required: true
+                    },
+                    Name: {
+                        required: true
+                    },
+                    Description: {
+                        required: true
+                    },
+                    ControlTypeId: {
+                        required: true
+                    },
+                    ControlProcessId: {
+                        required: true
+                    },
+                    ControlFrequencyId: {
+                        required: true
+                    },
+                    ControlEffectivenessId: {
+                        required: true
+                    },
+                    RiskIdentificationId: {
+                        required: true
+                    },
+                    ControlEffectivenessRating: {
+                        required: true
+                    }
+                },
+                messages: {
+                    Code: {
+                        required: "The Code field is required"
+                    },
+                    Name: {
+                        required: "The Name field is required"
+                    },
+                    Description: {
+                        required: "The Description field is required"
+                    },
+                    ControlTypeId: {
+                        required: "The Control Type is required"
+                    },
+                    ControlProcessId: {
+                        required: "The Control Process field is required"
+                    },
+                    ControlFrequencyId: {
+                        required: "The Control Frequency field is required"
+                    },
+                    ControlEffectivenessId: {
+                        required: "The Control Effectiveness field is required"
+                    },
+                    RiskIdentificationId: {
+                        required: "The Risk Identification field is required"
+                    },
+                    ControlEffectivenessRating: {
+                        required: "The Control Effectiveness Rating field is required"
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    if (element.is("select")) {
+                        error.insertAfter(element.siblings("span"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+
+            $(document).on("click", "#btnCancel", function (e) {
+                e.preventDefault(); // Prevent the default behavior of the button
+                window.location.href = '/Control/Index';
+            });
+
+            $("#saveButton").click(function () {
+                var editorDescription = CKEDITOR.instances['Description'];
+
+                var htmlDescription = editorDescription.getData();
+                if ($("#EditForm").valid()) {
+                    var formData = {
+                        Code: $("#Code").val(),
+                        Name: $("#Name").val(),
+                        Description: htmlDescription,
+                        ControlTypeId: $("#ControlType").val(),
+                        ControlProcessId: $("#ControlProcess").val(),
+                        ControlFrequencyId: $("#ControlFrequency").val(),
+                        ControlEffectivenessId: $("#ControlEffectiveness").val(),
+                        RiskIdentificationId: $("#RiskIdentification").val(),
+                        ControlEffectivenessRating: $("#ControlEffectivenessRating").val()
+                    };
+                    $.ajax({
+                        url: "/api/Controls/" + @Model.Id,
+                        method: "PUT",
+                        dataType: 'json',
+                        contentType: "application/json",
+                        data: JSON.stringify(formData),
+                        success: function (response) {
+                            alert("The Modified is Successfully");
+                            window.location.href = '/Control/Index';
+                        },
+                        error: function (error) {
+                            if (error.responseJSON && error.responseJSON.errors) {
+                                $.each(error.responseJSON.errors, function (key, value) {
+                                    $("#" + key).siblings(".text-danger").text(value);
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,118 @@
+﻿@model Year
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/addeditstyle.css" rel="stylesheet" />
+<div class="row">
+
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Add New Year</h4>
+                <form class="forms-sample" id="AddForm">
+                    <div class="form-group">
+                        <label for="Name">Name</label>
+                        <input type="text" class="form-control" id="Name" name="Name" placeholder="Year">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Company">Company</label>
+                        @Html.DropDownList("CompanyId", null, "-- Select One --", new { @class = "form-control", @id = "Company", @name="CompanyId" })
+                        <span asp-validation-for="CompanyId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Department">Department</label>
+                        @Html.DropDownList("DepartmentId", null, "-- Select One --", new { @class = "form-control", @id = "Department", @name="DepartmentId" })
+                        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        <textarea type="text" class="form-control" id="Description" placeholder="Description"></textarea>
+                        @* <div id="Description"></div> *@
+                    </div>
+                    <button id="saveButton" type="button" class="btn btn-primary me-2">Save Data</button>
+                    <button id="btnCancel" class="btn btn-light">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            $("#AddForm").validate({
+                rules: {
+                    Name: {
+                        required: true
+                    },
+                    CompanyId: {
+                        required: true
+                    },
+                    DepartmentId: {
+                        required: true
+                    }
+                },
+                messages: {
+                    Name: {
+                        required: "The Name field is required"
+                    },
+                    CompanyId: {
+                        required: "The Company field is required"
+                    },
+                    DepartmentId: {
+                        required: "The Department field is required"
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    if (element.is("select")) {
+                        error.insertAfter(element.siblings("span"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+
+            $(document).on("click", "#btnCancel", function (e) {
+                e.preventDefault();
+                window.location.href = '/Year/Index';
+            });
+
+            $("#saveButton").click(function () {
+                var editorDescription = CKEDITOR.instances['Description'];
+
+                var htmlDescription = editorDescription.getData();
+                if ($("#AddForm").valid()) {
+                    var formData = {
+                        Name: $("#Name").val(),
+                        CompanyId: $("#Company").val(),
+                        DepartmentId: $("#Department").val(),
+                        Description: htmlDescription
+                    };
+                    $.ajax({
+                        url: "/api/years",
+                        method: "POST",
+                        dataType: 'json',
+                        contentType: "application/json",
+                        data: JSON.stringify(formData),
+                        success: function (response) {
+                            alert("The Save is Successfully.");
+                            window.location.href = '/Year/Index';
+                        },
+                        error: function (error) { 
+                            if (error.responseJSON && error.responseJSON.errors) {
+                                $.each(error.responseJSON.errors, function (key, value) {
+                                    $("#" + key).siblings(".text-danger").text(value);
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

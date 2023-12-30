@@ -1,0 +1,259 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Views\ControlEffectivenessc\Add.cshtml" />
+    <None Include="Views\ControlEffectivenessc\Edit.cshtml" />
+    <None Include="Views\ControlEffectivenessc\Index.cshtml" />
+    <None Include="Views\ControlFrequencyss\Add.cshtml" />
+    <None Include="Views\ControlFrequencyss\Edit.cshtml" />
+    <None Include="Views\ControlFrequencyss\Index.cshtml" />
+    <None Include="Views\ControlProcesses\Add.cshtml" />
+    <None Include="Views\ControlProcesses\Edit.cshtml" />
+    <None Include="Views\ControlProcesses\Index.cshtml" />
+    <None Include="Views\ControlTypes\Add.cshtml" />
+    <None Include="Views\ControlTypes\Edit.cshtml" />
+    <None Include="Views\ControlTypes\Index.cshtml" />
+    <None Include="Views\RiskCategorysscs\Add.cshtml" />
+    <None Include="Views\RiskCategorysscs\Edit.cshtml" />
+    <None Include="Views\RiskCategorysscs\Index.cshtml" />
+    <None Include="Views\RiskImpactes\Add.cshtml" />
+    <None Include="Views\RiskImpactes\Edit.cshtml" />
+    <None Include="Views\RiskImpactes\Index.cshtml" />
+    <None Include="Views\RiskLikehoodes\Add.cshtml" />
+    <None Include="Views\RiskLikehoodes\Edit.cshtml" />
+    <None Include="Views\RiskLikehoodes\Index.cshtml" />
+    <None Include="wwwroot\css\.DS_Store" />
+    <None Include="wwwroot\css\AddEditStyle.css.map" />
+    <None Include="wwwroot\css\maps\style.css.map" />
+    <None Include="wwwroot\css\style.css.map" />
+    <None Include="wwwroot\docs\documentation.js" />
+    <None Include="wwwroot\fonts\.DS_Store" />
+    <None Include="wwwroot\fonts\Roboto\.DS_Store" />
+    <None Include="wwwroot\fonts\Roboto\Roboto-Black.woff2" />
+    <None Include="wwwroot\fonts\Roboto\Roboto-Bold.woff2" />
+    <None Include="wwwroot\fonts\Roboto\Roboto-Light.woff2" />
+    <None Include="wwwroot\fonts\Roboto\Roboto-Medium.woff2" />
+    <None Include="wwwroot\fonts\Roboto\Roboto-Regular.woff2" />
+    <None Include="wwwroot\gulpfile.js" />
+    <None Include="wwwroot\images\.DS_Store" />
+    <None Include="wwwroot\images\auth\.DS_Store" />
+    <None Include="wwwroot\images\faces\.DS_Store" />
+    <None Include="wwwroot\images\logo-dark.svg" />
+    <None Include="wwwroot\images\logo-mini.svg" />
+    <None Include="wwwroot\images\logo.svg" />
+    <None Include="wwwroot\js\.DS_Store" />
+    <None Include="wwwroot\js\chart.js" />
+    <None Include="wwwroot\js\dashboard.js" />
+    <None Include="wwwroot\js\file-upload.js" />
+    <None Include="wwwroot\js\hoverable-collapse.js" />
+    <None Include="wwwroot\js\jquery.cookie.js" />
+    <None Include="wwwroot\js\off-canvas.js" />
+    <None Include="wwwroot\js\template.js" />
+    <None Include="wwwroot\resizecols\js\jQuery.resizableColumns.js" />
+    <None Include="wwwroot\resizecols\js\jQuery.resizableColumns.min.js" />
+    <None Include="wwwroot\resizecols\js\resizableColumns.min.js" />
+    <None Include="wwwroot\scss\.DS_Store" />
+    <None Include="wwwroot\scss\components\.DS_Store" />
+    <None Include="wwwroot\scss\components\plugin-overrides\_progressbar-js.scss" />
+    <None Include="wwwroot\scss\components\plugin-overrides\_pws-tabs.scss" />
+    <None Include="wwwroot\scss\components\_badges.scss" />
+    <None Include="wwwroot\scss\components\_buttons.scss" />
+    <None Include="wwwroot\scss\components\_cards.scss" />
+    <None Include="wwwroot\scss\components\_checkbox-radio.scss" />
+    <None Include="wwwroot\scss\components\_dropdown.scss" />
+    <None Include="wwwroot\scss\components\_forms.scss" />
+    <None Include="wwwroot\scss\components\_icons.scss" />
+    <None Include="wwwroot\scss\components\_lists.scss" />
+    <None Include="wwwroot\scss\components\_tables.scss" />
+    <None Include="wwwroot\scss\components\_tabs.scss" />
+    <None Include="wwwroot\scss\landing-screens\_auth.scss" />
+    <None Include="wwwroot\scss\mixins\_animation.scss" />
+    <None Include="wwwroot\scss\mixins\_buttons.scss" />
+    <None Include="wwwroot\scss\mixins\_cards.scss" />
+    <None Include="wwwroot\scss\mixins\_misc.scss" />
+    <None Include="wwwroot\scss\style.scss" />
+    <None Include="wwwroot\scss\_background.scss" />
+    <None Include="wwwroot\scss\_demo.scss" />
+    <None Include="wwwroot\scss\_fonts.scss" />
+    <None Include="wwwroot\scss\_footer.scss" />
+    <None Include="wwwroot\scss\_functions.scss" />
+    <None Include="wwwroot\scss\_layouts.scss" />
+    <None Include="wwwroot\scss\_misc.scss" />
+    <None Include="wwwroot\scss\_navbar.scss" />
+    <None Include="wwwroot\scss\_preview.scss" />
+    <None Include="wwwroot\scss\_reset.scss" />
+    <None Include="wwwroot\scss\_sidebar.scss" />
+    <None Include="wwwroot\scss\_typography.scss" />
+    <None Include="wwwroot\scss\_utilities.scss" />
+    <None Include="wwwroot\scss\_variables.scss" />
+    <None Include="wwwroot\scss\_vertical-wrapper.scss" />
+    <None Include="wwwroot\vendors\.DS_Store" />
+    <None Include="wwwroot\vendors\chart.js\Chart.min.js" />
+    <None Include="wwwroot\vendors\js\vendor.bundle.base.js" />
+    <None Include="wwwroot\vendors\mdi\fonts\materialdesignicons-webfont.svg" />
+    <None Include="wwwroot\vendors\mdi\fonts\materialdesignicons-webfont.woff2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.25">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AuditingSystem.Entities\AuditingSystem.Entities.csproj" />
+    <ProjectReference Include="..\AuditingSystem.Services\AuditingSystem.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Activity\Add.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Activity\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Activity\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Company\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Control\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Department\Add.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Department\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Department\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Function\Add.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Function\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Function\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Industry\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Objective\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Practice\Add.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Practice\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Practice\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\RiskAssessment\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\RiskIdentification\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Task\Add.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Task\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Task\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/asconfig-schema.json" /></VisualStudio></ProjectExtensions>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Industry\Add.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Company\Add.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Company\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Control\Add.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Control\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Industry\Add.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Industry\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Objective\Add.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Objective\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\RiskIdentification\Add.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\RiskIdentification\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Industry\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Company\Add.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Company\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Objective\Add.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Objective\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Control\Add.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Control\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\RiskIdentification\Add.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\RiskIdentification\Edit.cshtml" />
+  </ItemGroup>
+
+</Project>

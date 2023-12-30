@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ControlFrequency>
+@{
+    ViewData["DeleteTitle"] = "Control Frequency";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="card-title">Control Frequency Management View</h4>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <a class="btn btn-primary me-2" href="~/ControlFrequencyss/Add">
+                            <i class="fa-solid fa-plus"></i> Add New Control Frequency
+                        </a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="tableList" class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                        
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>BGColor</th>
+                                <th>FontColor</th>
+
+                                <th colspan="2">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="tr">
+                              
+                                    <td>@item.Name</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.BGColor</td>
+                                    <td>@item.FontColor</td>
+
+                                    <td>
+                                        <a asp-action="Edit" asp-controller="ControlFrequencyss" asp-route-id="@item.Id" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    </td>
+                                    <td>
+                                        <a data-actions-id="@item.Id" title="Delete" id="btnDelete" href="#"><i class="fa-solid fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,98 @@
+﻿@model ControlType
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<link href="~/css/addeditstyle.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Edit Role</h4>
+                <form class="forms-sample" id="AddForm">
+
+
+                    <div class="form-group">
+                        <label for="BGColor">BGColor</label>
+                        @* <input type="text" class="form-control" id="Description" placeholder="Description"> *@
+                        <input type="text" class="form-control" id="BGColor" name="BGColor" placeholder="BGColor">
+                        <span asp-validation-for="BGColor" class="text-danger"></span>
+                        @*         <div id="Description"></div> *@
+                    </div>
+                    <div class="form-group">
+                        <label for="FontColor">FontColor</label>
+                        <input type="text" class="form-control" id="FontColor" name="FontColor" placeholder="FontColor">
+                        <span asp-validation-for="FontColor" class="text-danger"></span>
+                    </div>
+                    <button id="saveButton" type="button" class="btn btn-primary me-2">Save Data</button>
+                    <button id="btnCancel" class="btn btn-light">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#EditForm").validate({
+                rules: {
+                    Name: {
+                        required: true
+                    }
+                },
+                messages: {
+                    Name: {
+                        required: "The Name field is required"
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    if (element.is("select")) {
+                        error.insertAfter(element.siblings("span"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+
+            $(document).on("click", "#btnCancel", function (e) {
+                e.preventDefault();
+                window.location.href = '/ControlTypes/Index';
+            });
+
+            $("#saveButton").click(function () {
+                var editorContent = window.editorInstance.getData();
+
+                window.editorInstance.setData(editorContent);//هون في غلط
+                if ($("#EditForm").valid()) {
+                    var formData = {
+
+                        BGColor: $("#BGColor").val(),
+                        FontColor: $("#FontColor").val()
+                    };
+                    $.ajax({
+                        url: "/api/ControlTypesscs/@Model.Id",
+                        method: "PUT",
+                        dataType: 'json',
+                        contentType: "application/json",
+                        data: JSON.stringify(formData),
+                        success: function (response) {
+                            alert("The Role is modified successfully.");
+                            window.location.href = '/ControlTypes/Index';
+                        },
+                        error: function (error) {
+                            if (error.responseJSON && error.responseJSON.errors) {
+                                $.each(error.responseJSON.errors, function (key, value) {
+                                    $("#" + key).siblings(".text-danger").text(value);
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
